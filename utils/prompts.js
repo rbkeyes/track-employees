@@ -65,9 +65,11 @@ const prompts = [
 ];
 
 // inquirer.prompt(prompts).then((answers) => console.log(answers))
-const runPrompts = async() => {
-    const answers = await inquirer.prompt(prompts);
-    console.log(answers);
-}
+const runPrompts = () => {
+    inquirer.prompt(prompts).then((answers) => console.log(answers));
+    return(answers);
+};
+
+runPrompts();
 
 module.exports = runPrompts;
