@@ -28,3 +28,21 @@ VALUES ('intern', 30, 2);
 -- add employee
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ('Lilly', 'Dog', 2, null);
+
+-- get all department names (for inquirer prompt)
+SELECT name FROM department;
+
+-- get all role titles (for inquirer prompts)
+SELECT title FROM role;
+
+-- get manager names (for prompts)
+SELECT CONCAT_WS(' ', employee.first_name, employee.last_name) AS manager
+FROM role
+JOIN employee
+ON role.id = employee.role_id
+WHERE role.title = 'manager';
+
+-- get employee names (for prompts)
+SELECT CONCAT_WS(' ', first_name, last_name) AS employees
+FROM employee;
+
