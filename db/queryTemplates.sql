@@ -24,3 +24,7 @@ VALUES ('product development');
 -- add role
 INSERT INTO role (title, salary, department_id)
 VALUES ('intern', 30, 2);
+
+-- add employee
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES ('Lilly', 'Dog', 2, null);
