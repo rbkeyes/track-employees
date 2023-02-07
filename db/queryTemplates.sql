@@ -16,3 +16,7 @@ LEFT JOIN department AS d
 ON r.department_id = d.id
 LEFT JOIN Employee m
 ON e.manager_id = m.id;
+
+-- add department
+INSERT INTO department (name)
+VALUES ('product development');
