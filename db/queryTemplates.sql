@@ -20,3 +20,7 @@ ON e.manager_id = m.id;
 -- add department
 INSERT INTO department (name)
 VALUES ('product development');
+
+-- add role
+INSERT INTO role (title, salary, department_id)
+VALUES ('intern', 30, 2);
