@@ -1,5 +1,10 @@
+// import and require inquirer
 const inquirer = require('inquirer');
 
+// dependencies from queries file
+const { runQuery, getChoices, choices } = require('./queries');
+
+// create array of prompts to be used with inquirer.prompt
 const prompts = [
         {
             name: 'mainMenu',
@@ -25,7 +30,7 @@ const prompts = [
             name: 'selectDept',
             type: 'list',
             message: 'What department does the role belong to?',
-            choices: ['engineering', 'accounting', 'admin'],
+            choices: getChoices(`SELECT name FROM department`),
             when: (answers) => answers.salary
         }, {
             name: 'firstName',
@@ -64,10 +69,16 @@ const prompts = [
         }
 ];
 
-// inquirer.prompt(prompts).then((answers) => console.log(answers))
-const runPrompts = () => {
-    inquirer.prompt(prompts).then((answers) => console.log(answers));
-    return(answers);
+// function to run prompts and return answers
+const runPrompts = async () => {
+    try {
+        const answers = await inquirer.prompt(prompts);
+        console.log(answers);
+        return answers;
+    } catch (err) {
+        console.error(err);
+        return;
+    }
 };
 
 runPrompts();
