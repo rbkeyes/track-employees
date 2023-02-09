@@ -69,30 +69,40 @@ const runQuery = (sql, params) => {
     });
 };
 
-// get array of data to be used in prompt choices
+// get list of departments
 const getDepartments = async () => {
     const sql = `SELECT name FROM department`;
     const choices = await db.query(sql);
-    console.log(choices);
+    // console.log(choices);
     const choiceList = await choices[0].map(choice => choice.name);
-    console.log(choiceList);
+    // console.log(choiceList);
     return choiceList;
 };
 
-// get array of data to be used in prompt choices
+// get list of roles
 const getRoles = async () => {
     const sql = `SELECT title FROM role`;
     const roles = await db.query(sql);
-    console.log(roles);
+    // console.log(roles);
     const roleList = await roles[0].map(role => role.title);
-    console.log(roleList);
+    // console.log(roleList);
     return roleList;
 };
 
-// deptChoices()
-// const deptList = () => {
-//     db.query(`SELECT name FROM department`, (err, results))
-// }
+// get list of employee names
+const getManagers = async () => {
+    const sql = 
+    `SELECT CONCAT_WS(" ", employee.first_name, employee.last_name) AS  manager 
+    FROM role
+    JOIN employee
+    ON role.id = employee.role_id
+    WHERE role.title = "manager"`;
+    const managers = await db.query(sql);
+    console.log(roles);
+    const managerList = await role[0].map(role => role.manager);
+    console.log(roleList);
+    return roleList;
+};
 
 // runQuery(viewDepartments, null);
 getChoices(roleList);

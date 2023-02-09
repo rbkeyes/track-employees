@@ -49,18 +49,13 @@ const runPrompts = async () => {
             name: 'selectRole',
             type: 'list',
             message: "What is the employee's role?",
-            choices: await getChoices(`SELECT title FROM role`),
+            choices: await getRoles(`SELECT title FROM role`),
             when: (answers) => answers.lastName
         }, {
             name: 'selectManager',
             type: 'list',
             message: "Who is the employee's manager?",
-            choices: await getChoices(
-                `SELECT CONCAT_WS(" ", employee.first_name, employee.last_name) AS  manager 
-                FROM role
-                JOIN employee
-                ON role.id = employee.role_id
-                WHERE role.title = "manager"`),
+            choices: await getManagers(),
             when: (answers) => answers.selectRole
         }, {
             name: 'selectEmployee',
