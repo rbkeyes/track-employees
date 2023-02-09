@@ -2,10 +2,12 @@
 const inquirer = require('inquirer');
 
 // dependencies from queries file
-const { runQuery, getChoices, choices } = require('./queries');
+const { runQuery, getChoices } = require('./queries');
 
-// create array of prompts to be used with inquirer.prompt
-const prompts = [
+// run prompts function
+const runPrompts = async () => {
+    // prompts variable
+    const prompts = [
         {
             name: 'mainMenu',
             type: 'list',
@@ -25,13 +27,14 @@ const prompts = [
             name: 'salary',
             type: 'input',
             message: 'What is the salary of the role?',
-            when: (answers) => answers.newRole
+            when: (answers) => answers.roleTitle
         }, {
             name: 'selectDept',
             type: 'list',
             message: 'What department does the role belong to?',
-            choices: getChoices(`SELECT name FROM department`),
-            when: (answers) => answers.salary
+            choices: await getChoices(`SELECT name FROM department`),
+            when: (answers) =>
+                answers.salary,
         }, {
             name: 'firstName',
             type: 'input',
@@ -46,41 +49,40 @@ const prompts = [
             name: 'selectRole',
             type: 'list',
             message: "What is the employee's role?",
-            choices: ['accountant', 'engineer', 'data scientist', 'manager', 'intern'],
+            choices: await getChoices(`SELECT title FROM role`),
             when: (answers) => answers.lastName
         }, {
             name: 'selectManager',
             type: 'list',
             message: "Who is the employee's manager?",
-            choices: ['Reed', 'Parker', 'Tatum', 'Lilly'],
-            when: (answers) => answers.role
+            choices: await getChoices(
+                `SELECT CONCAT_WS(" ", employee.first_name, employee.last_name) AS  manager 
+                FROM role
+                JOIN employee
+                ON role.id = employee.role_id
+                WHERE role.title = "manager"`),
+            when: (answers) => answers.selectRole
         }, {
             name: 'selectEmployee',
             type: 'list',
             message: "Which employee's role would you like to update?",
-            choices: [1, 2, 3],
+            choices: await getChoices(
+                `SELECT CONCAT_WS(' ', first_name, last_name) AS employees
+                FROM employee`),
             when: (answers) => answers.mainMenu === 'Update an employee role'
         }, {
             name: 'updateRole',
             type: 'list',
             message: "Select the employee's new role?",
-            choices: ['accountant', 'engineer', 'data scientist', 'manager', 'intern'],
+            choices: await getChoices(`SELECT title FROM role`),
             when: (answers) => answers.selectEmployee
         }
-];
+    ];
 
-// function to run prompts and return answers
-const runPrompts = async () => {
-    try {
-        const answers = await inquirer.prompt(prompts);
-        console.log(answers);
-        return answers;
-    } catch (err) {
-        console.error(err);
-        return;
-    }
+    //answers
+    const answers = await inquirer.prompt(prompts);
+    console.log(answers);
 };
 
-runPrompts();
 
 module.exports = runPrompts;

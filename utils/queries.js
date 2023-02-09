@@ -10,10 +10,7 @@ const db = mysql.createConnection(
         database: 'employees_db'
     },
     console.log(`Connected to the employees_db database.`)
-);
-
-// array of choices to populate prompts
-const choices = [];
+).promise();
 
 // query statements
 const viewDepartments = `SELECT * FROM department`;
@@ -51,16 +48,14 @@ const updateRole =
     SET role_id = ?
     WHERE id = ?`;
 
-const deptList = `SELECT name FROM department`;
 
-const roleList = `SELECT title FROM role`;
 
-const managerList =
-    `SELECT CONCAT_WS(" ", employee.first_name, employee.last_name) AS  manager 
-        FROM role
-        JOIN employee
-        ON role.id = employee.role_id
-        WHERE role.title = "manager"`
+// const managerList =
+//     `SELECT CONCAT_WS(" ", employee.first_name, employee.last_name) AS  manager 
+//         FROM role
+//         JOIN employee
+//         ON role.id = employee.role_id
+//         WHERE role.title = "manager"`
 
 const runQuery = (sql, params) => {
     db.query(sql, params, (err, results) => {
@@ -74,21 +69,32 @@ const runQuery = (sql, params) => {
     });
 };
 
-const getChoices = (sql) => {
-    db.query(sql, (err, results) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        for (const result of results) {
-            choices.push(result.name);
-        }
-        console.log(choices);
-        // choices.push(results);
-    });
+// get array of data to be used in prompt choices
+const getDepartments = async () => {
+    const sql = `SELECT name FROM department`;
+    const choices = await db.query(sql);
+    console.log(choices);
+    const choiceList = await choices[0].map(choice => choice.name);
+    console.log(choiceList);
+    return choiceList;
 };
 
-runQuery(viewDepartments, null);
-getChoices(deptList);
+// get array of data to be used in prompt choices
+const getRoles = async () => {
+    const sql = `SELECT title FROM role`;
+    const roles = await db.query(sql);
+    console.log(roles);
+    const roleList = await roles[0].map(role => role.title);
+    console.log(roleList);
+    return roleList;
+};
 
-module.exports = { runQuery, getChoices, choices };
+// deptChoices()
+// const deptList = () => {
+//     db.query(`SELECT name FROM department`, (err, results))
+// }
+
+// runQuery(viewDepartments, null);
+getChoices(roleList);
+
+module.exports = { runQuery, getChoices };
