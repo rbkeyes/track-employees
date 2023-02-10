@@ -1,4 +1,5 @@
 // prepared statements object
+// to be used when calling queries functions
 const statements = {
     viewDepartments:
         `SELECT * FROM department`,
