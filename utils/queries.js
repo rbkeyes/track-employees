@@ -15,25 +15,41 @@ const db = mysql.createConnection(
     console.log(`Connected to the employees_db database.`)
 ).promise();
 
-const getAndViewTable = async (sql, params) => {
-    const data = await db.query(sql, params);
-    if (!data) {
-        console.error('Unable to find requested data');
+const viewData = async (sql) => {
+    try {
+        const data = await db.query(sql);
+        if (!data) {
+            console.error('Unable to find requested data');
+        }
+        console.table(data[0]);
+    } catch (err) {
+        console.error(err);
     }
-    console.table(data[0]);
 };
 
 // get list of departments
 const getChoices = async (sql) => {
-    const choices = await db.query(sql);
-    if (!choices) {
-        console.log('No choices available');
-        return;
+    try {
+        const choices = await db.query(sql);
+        const choiceList = await choices[0].map(choice => choice.name);
+        console.log(choiceList);
+        return choiceList;
+    } catch (err) {
+        console.error(err);
     }
-    const choiceList = await choices[0].map(choice => choice.name);
-    return choiceList;
 };
 
-getAndViewTable(statements.viewRoles, null)
+const modifyDb = async (sql, params) => {
+    try {
+        await db.query(sql, params);
+            console.log('Success!');
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
-module.exports = { getAndViewTable, getChoices }
+modifyDb(statements.addDepartment, 'sewing');
+
+
+
+module.exports = { viewData, getChoices, modifyDb }
