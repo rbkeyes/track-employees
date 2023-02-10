@@ -2,7 +2,9 @@
 const inquirer = require('inquirer');
 
 // dependencies from queries file
-const { runQuery, getChoices } = require('./queries');
+const { getChoices } = require('./queries');
+const statements = require('./preppedStatements');
+const { allRoles } = require('./preppedStatements');
 
 // run prompts function
 const runPrompts = async () => {
@@ -32,7 +34,7 @@ const runPrompts = async () => {
             name: 'selectDept',
             type: 'list',
             message: 'What department does the role belong to?',
-            choices: await getChoices(`SELECT name FROM department`),
+            choices: await getDepartments(statements.allDepartments),
             when: (answers) =>
                 answers.salary,
         }, {
@@ -49,27 +51,25 @@ const runPrompts = async () => {
             name: 'selectRole',
             type: 'list',
             message: "What is the employee's role?",
-            choices: await getRoles(`SELECT title FROM role`),
+            choices: await getChoices(statements.allRoles),
             when: (answers) => answers.lastName
         }, {
             name: 'selectManager',
             type: 'list',
             message: "Who is the employee's manager?",
-            choices: await getManagers(),
+            choices: await getChoices(statements.allManagers),
             when: (answers) => answers.selectRole
         }, {
             name: 'selectEmployee',
             type: 'list',
             message: "Which employee's role would you like to update?",
-            choices: await getChoices(
-                `SELECT CONCAT_WS(' ', first_name, last_name) AS employees
-                FROM employee`),
+            choices: await getChoices(statements.allEmployees),
             when: (answers) => answers.mainMenu === 'Update an employee role'
         }, {
             name: 'updateRole',
             type: 'list',
             message: "Select the employee's new role?",
-            choices: await getChoices(`SELECT title FROM role`),
+            choices: await getChoices(allRoles),
             when: (answers) => answers.selectEmployee
         }
     ];
