@@ -1,13 +1,22 @@
+// import and require inquirer
 const inquirer = require('inquirer');
 
-const prompts = [
+// dependencies from queries file
+const { getChoices } = require('./queries');
+const statements = require('./preppedStatements');
+const { allRoles } = require('./preppedStatements');
+
+// run prompts function
+const runPrompts = async () => {
+    // prompts variable
+    const prompts = [
         {
             name: 'mainMenu',
             type: 'list',
             message: 'What would you like to do?',
             choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role', 'Exit'],
         }, {
-            name: 'deptName',
+            name: 'addDept',
             type: 'input',
             message: 'What is the name of the department?',
             when: (answers) => answers.mainMenu === 'Add a department'
@@ -20,13 +29,14 @@ const prompts = [
             name: 'salary',
             type: 'input',
             message: 'What is the salary of the role?',
-            when: (answers) => answers.newRole
+            when: (answers) => answers.roleTitle
         }, {
             name: 'selectDept',
             type: 'list',
             message: 'What department does the role belong to?',
-            choices: ['engineering', 'accounting', 'admin'],
-            when: (answers) => answers.salary
+            choices: await getDepartments(statements.allDepartments),
+            when: (answers) =>
+                answers.salary,
         }, {
             name: 'firstName',
             type: 'input',
@@ -41,35 +51,32 @@ const prompts = [
             name: 'selectRole',
             type: 'list',
             message: "What is the employee's role?",
-            choices: ['accountant', 'engineer', 'data scientist', 'manager', 'intern'],
+            choices: await getChoices(statements.allRoles),
             when: (answers) => answers.lastName
         }, {
             name: 'selectManager',
             type: 'list',
             message: "Who is the employee's manager?",
-            choices: ['Reed', 'Parker', 'Tatum', 'Lilly'],
-            when: (answers) => answers.role
+            choices: await getChoices(statements.allManagers),
+            when: (answers) => answers.selectRole
         }, {
             name: 'selectEmployee',
             type: 'list',
             message: "Which employee's role would you like to update?",
-            choices: [1, 2, 3],
+            choices: await getChoices(statements.allEmployees),
             when: (answers) => answers.mainMenu === 'Update an employee role'
         }, {
             name: 'updateRole',
             type: 'list',
             message: "Select the employee's new role?",
-            choices: ['accountant', 'engineer', 'data scientist', 'manager', 'intern'],
+            choices: await getChoices(allRoles),
             when: (answers) => answers.selectEmployee
         }
-];
+    ];
 
-// inquirer.prompt(prompts).then((answers) => console.log(answers))
-const runPrompts = () => {
-    inquirer.prompt(prompts).then((answers) => console.log(answers));
-    return(answers);
+    const answers = await inquirer.prompt(prompts);
+    console.log(answers);
 };
 
-runPrompts();
 
 module.exports = runPrompts;
