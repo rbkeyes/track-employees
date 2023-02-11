@@ -21,7 +21,7 @@ const viewData = async (sql) => {
         if (!data) {
             console.error('Unable to find requested data');
         }
-        console.table(data[0]);
+        console.table(data);
     } catch (err) {
         console.error(err);
     }
@@ -32,7 +32,7 @@ const getChoices = async (sql) => {
     try {
         const choices = await db.query(sql);
         const choiceList = await choices[0].map(choice => choice.name);
-        console.log(choiceList);
+        // console.log(choiceList);
         return choiceList;
     } catch (err) {
         console.error(err);

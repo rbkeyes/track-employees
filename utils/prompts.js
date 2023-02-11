@@ -2,9 +2,8 @@
 const inquirer = require('inquirer');
 
 // dependencies from queries file
-const { getChoices } = require('./queries');
+const { viewData, getChoices } = require('./queries');
 const statements = require('./preppedStatements');
-const { allRoles } = require('./preppedStatements');
 
 // run prompts function
 const runPrompts = async () => {
@@ -48,34 +47,40 @@ const runPrompts = async () => {
             message: "What is the employee's last name?",
             when: (answers) => answers.firstName
         }, {
-            name: 'selectRole',
+            name: 'roleTitle',
             type: 'list',
             message: "What is the employee's role?",
             choices: await getChoices(statements.allRoles),
             when: (answers) => answers.lastName
         }, {
-            name: 'selectManager',
+            name: 'managerName',
             type: 'list',
             message: "Who is the employee's manager?",
             choices: await getChoices(statements.allManagers),
             when: (answers) => answers.selectRole
         }, {
-            name: 'selectEmployee',
+            name: 'employeeName',
             type: 'list',
             message: "Which employee's role would you like to update?",
             choices: await getChoices(statements.allEmployees),
             when: (answers) => answers.mainMenu === 'Update an employee role'
         }, {
-            name: 'updateRole',
+            name: 'roleTitle',
             type: 'list',
             message: "Select the employee's new role?",
-            choices: await getChoices(allRoles),
+            choices: await getChoices(statements.allRoles),
             when: (answers) => answers.selectEmployee
         }
     ];
 
-    const answers = await inquirer.prompt(prompts);
-    console.log(answers);
+    inquirer.prompt(prompts)
+    // console.log(answers);
+    .then((answers) => {
+        switch
+    })
+    if (answers.mainMenu === 'View all departments') {
+        viewData(statements.viewDepartments);
+    }
 };
 
 runPrompts();
