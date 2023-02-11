@@ -14,7 +14,7 @@ app.use(express.json());
 
 const init = async() => {
     const answers = await runPrompts();
-    switch (answers) {
+    switch (answers.mainMenu) {
                 case 'View all departments':
                     viewData(statements.viewDepartments)
                     break;
@@ -25,14 +25,13 @@ const init = async() => {
                     viewTable(statements.viewEmployees);
                     break;
                 case 'Add a department':
-                    await answers;
                     modifyDb(statements.addDepartment, new Department(answers));
                     break;
                 default:
                     console.log("Goodbye")
                     break;
             };
-}
+};
 
 
 

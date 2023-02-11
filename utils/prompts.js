@@ -16,7 +16,7 @@ const runPrompts = async () => {
             message: 'What would you like to do?',
             choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role', 'Exit'],
         }, {
-            name: 'addDept',
+            name: 'deptName',
             type: 'input',
             message: 'What is the name of the department?',
             when: (answers) => answers.mainMenu === 'Add a department'
