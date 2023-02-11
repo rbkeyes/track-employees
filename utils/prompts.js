@@ -31,10 +31,10 @@ const runPrompts = async () => {
             message: 'What is the salary of the role?',
             when: (answers) => answers.roleTitle
         }, {
-            name: 'selectDept',
+            name: 'deptName',
             type: 'list',
             message: 'What department does the role belong to?',
-            choices: await getDepartments(statements.allDepartments),
+            choices: await getChoices(statements.allDepartments),
             when: (answers) =>
                 answers.salary,
         }, {
@@ -77,6 +77,8 @@ const runPrompts = async () => {
     const answers = await inquirer.prompt(prompts);
     console.log(answers);
 };
+
+runPrompts();
 
 
 module.exports = runPrompts;

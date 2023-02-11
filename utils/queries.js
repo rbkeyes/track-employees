@@ -48,6 +48,6 @@ const modifyDb = async (sql, params) => {
         }
     };
 
-modifyDb(statements.addDepartment, 'sewing');
+// modifyDb(statements.addDepartment, 'sewing');
 
 module.exports = { viewData, getChoices, modifyDb }

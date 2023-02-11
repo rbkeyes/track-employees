@@ -1,46 +1,46 @@
-const express = require('express');
-const mysql = require('mysql2');
-const consoleTable = require('console.table');
-const runPrompts = require("./utils/prompts");
-const { viewData, getChoices, modifyDb } = require('./utils/queries');
-const statements = require('./utils/preppedStatements');
+// const express = require('express');
+// const mysql = require('mysql2');
+// const consoleTable = require('console.table');
+// const runPrompts = require("./utils/prompts");
+// const { viewData, getChoices, modifyDb } = require('./utils/queries');
+// const statements = require('./utils/preppedStatements');
 
-const PORT = process.env.PORT || 3001;
-const app = express();
+// const PORT = process.env.PORT || 3001;
+// const app = express();
 
-// Express middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+// // Express middleware
+// app.use(express.urlencoded({ extended: false }));
+// app.use(express.json());
 
-const init = async() => {
-    const answers = await runPrompts();
-    switch (answers.mainMenu) {
-                case 'View all departments':
-                    viewData(statements.viewDepartments)
-                    break;
-                case 'View all roles':
-                    viewTable(statements.viewRoles);
-                    break;
-                case 'View all employees':
-                    viewTable(statements.viewEmployees);
-                    break;
-                case 'Add a department':
-                    modifyDb(statements.addDepartment, new Department(answers));
-                    break;
-                default:
-                    console.log("Goodbye")
-                    break;
-            };
-};
+// const init = async() => {
+//     const answers = await runPrompts();
+//     switch (answers.mainMenu) {
+//                 case 'View all departments':
+//                     viewData(statements.viewDepartments)
+//                     break;
+//                 case 'View all roles':
+//                     viewTable(statements.viewRoles);
+//                     break;
+//                 case 'View all employees':
+//                     viewTable(statements.viewEmployees);
+//                     break;
+//                 case 'Add a department':
+//                     modifyDb(statements.addDepartment, new Department(answers));
+//                     break;
+//                 default:
+//                     console.log("Goodbye")
+//                     break;
+//             };
+// };
 
+// init();
 
+// // default response
+// app.use((req, res) => {
+//     res.status(404).end();
+// });
 
-// default response
-app.use((req, res) => {
-    res.status(404).end();
-});
-
-// listening
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// // listening
+// app.listen(PORT, () => {
+//     console.log(`Server running on port ${PORT}`);
+// });
