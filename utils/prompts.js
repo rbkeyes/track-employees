@@ -1,9 +1,11 @@
 // import and require inquirer
 const inquirer = require('inquirer');
 
-// dependencies from queries file
+const Menu = require('../lib/Menu')
 const { viewData, getChoices } = require('./queries');
 const statements = require('./preppedStatements');
+const consoleTable = require('console.table');
+
 
 // run prompts function
 const runPrompts = async () => {
@@ -73,14 +75,32 @@ const runPrompts = async () => {
         }
     ];
 
-    inquirer.prompt(prompts)
-    // console.log(answers);
+    await inquirer.prompt(prompts)
     .then((answers) => {
-        switch
-    })
-    if (answers.mainMenu === 'View all departments') {
-        viewData(statements.viewDepartments);
-    }
+        switch (answers.mainMenu) {
+            case 'View all departments':
+                viewData(statements.viewDepartments);
+                break;
+            case 'View all roles':
+                viewData(statements.viewRoles);
+                break
+            case 'View all employees':
+                viewData(statements.viewEmployees);
+                break;
+            case 'Add a department':
+                modifyDb(statements.addDepartment, answers.deptName);
+                break;
+            case 'Add a role':
+                modifyDb(statements.addRole, answers.roleTitle, answers.salary, answers.deptName);
+                break;
+            case 'Add an employee':
+                modifyDb(statements.addEmployee, answers.firstName, answers.lastName, answers.roleTitle, answers.managerName);
+                break;
+            case 'Update an employee role':
+                modifyDb(statements.updateRole, answers.employeeName, answers.roleTitle)
+        };
+    });
+    
 };
 
 runPrompts();
