@@ -17,17 +17,17 @@ const statements = {
         ON r.department_id = d.id
         LEFT JOIN Employee m
         ON e.manager_id = m.id`,
-    allDepartments:
+    departmentNames:
         `SELECT name FROM department`,
-    allRoles:
+    roleTitles:
         `SELECT title AS name FROM role`,
-    allManagers:
+    managerNames:
         `SELECT CONCAT_WS(" ", employee.first_name, employee.last_name) AS name 
          FROM role
          JOIN employee
          ON role.id = employee.role_id
          WHERE role.title = "manager"`,
-    allEmployees:
+    employeeNames:
         `SELECT CONCAT_WS(' ', first_name, last_name) AS name
         FROM employee`,
     addDepartment:
