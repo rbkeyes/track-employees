@@ -19,6 +19,7 @@ const statements = require('./utils/preppedStatements');
 // app.use(express.json());
 const init = async () => {
 const answers = await runPrompts();
+console.log(answers);
         process.exit(0);
         //         switch (answers.mainMenu) {
 //             case 'View all departments':
@@ -49,44 +50,4 @@ const answers = await runPrompts();
 }; 
 
 
-
 init();
-
-
-// default response
-// app.use((req, res) => {
-//     res.status(404).end();
-// });
-
-// listening
-// app.listen(PORT, () => {
-//     console.log(`Server running on port ${PORT}`);
-// });
-
-// init();
-
-
-    // const answers = await inquirer.prompt(prompts);
-    // console.log(answers);
-    // inquirer.prompt(prompts).then((answers) => {
-    //     console.log(answers);
-    // });
-    // init();
-    // viewData(statements.viewDepartments) = await runPrompts();
-    // switch (answers) {
-    //             case 'View all departments':
-    //                 viewData(statements.viewDepartments)
-    //                 break;
-    //             case 'View all roles':
-    //                 viewTable(statements.viewRoles);
-    //                 break;
-    //             case 'View all employees':
-    //                 viewTable(statements.viewEmployees);
-    //                 break;
-    //             case 'Add a department':
-    //                 modifyDb(statements.addDepartment, new Department(answers));
-    //                 break;
-    //             default:
-    //                 console.log("Goodbye")
-    //                 break;
-    //         };

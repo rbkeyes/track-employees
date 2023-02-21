@@ -1,6 +1,5 @@
 // import and require mysql
 const mysql = require('mysql2');
-
 const consoleTable = require('console.table');
 const statements = require('./preppedStatements')
 
@@ -69,4 +68,4 @@ const modifyDb = async (sql, params) => {
 
 // viewData('SELECT * FROM department');
 
-module.exports = { viewData, getChoices, modifyDb }
+module.exports = { db, viewData, getChoices, modifyDb }
