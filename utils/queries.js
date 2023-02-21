@@ -15,18 +15,21 @@ const db = mysql.createConnection(
     console.log(`Connected to the employees_db database.`)
 ).promise();
 
-
-const getData = async(sql) => {
+const viewData = async (sql) => {
     try {
         const data = await db.query(sql);
+        if (!data) {
+            console.error('Unable to find requested data');
+        }
+        // not sure why query is returning an array of arrays with bunch of extra data
+        // index 0 returns desired data only
         console.log(data[0]);
-        return data;
+        console.table(data[0]);
+        init();
     } catch (err) {
         console.error(err);
     }
 };
-getData(statements.viewDepartments);
-// }
 
 // get list of departments
 const getChoices = async (sql) => {
@@ -40,21 +43,6 @@ const getChoices = async (sql) => {
     }
 };
 
-const viewData = async (sql) => {
-    try {
-        const data = await db.query(sql);
-        if (!data) {
-            console.error('Unable to find requested data');
-        }
-        // not sure why query if returning an array of arrays with bunch of extra data
-        // index 0 returns desired data only
-        console.log(data[0]);
-        console.table(data[0]);
-    } catch (err) {
-        console.error(err);
-    }
-};
-
 const modifyDb = async (sql, params) => {
     try {
         await db.query(sql, params);
@@ -63,6 +51,21 @@ const modifyDb = async (sql, params) => {
             console.error(err);
         }
     };
+
+
+// const addDepartment = async (sql) => {
+
+// }
+
+// 
+
+
+
+
+
+
+
+
 
 // viewData('SELECT * FROM department');
 
