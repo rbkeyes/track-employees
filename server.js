@@ -6,6 +6,7 @@
 const runPrompts = require("./utils/prompts");
 const Department = require('./lib/Department');
 const Role = require('./lib/Role');
+const Employee = require('./lib/Employee')
 const { viewData, modifyDb } = require('./utils/queries');
 const statements = require('./utils/preppedStatements');
 
@@ -39,16 +40,26 @@ const init = async () => {
             await modifyDb(sql, params);
             break;
         case 'Add a role':
-            console.log(answers);
+            // console.log(answers);
             params = new Role(answers).getParams();
             sql = statements.addRole;
             await modifyDb(sql, params);
             break;
         case 'Add an employee':
-            console.log(answers);
+            // console.log(answers);
+            params = new Employee(answers).getParams();
+            if (answers.managerName === "No manager") {
+                sql = statements.addEmployeeNoManager
+            } else {
+               sql = statements.addEmployee;
+            };
+            await modifyDb(sql, params);
             break;
         case 'Update an employee role':
-            console.log(answers);
+            console.log()
+            params = new Employee(answers).updateRole();
+            sql = statements.updateRole;
+            await modifyDb(sql, params);
             break;
         default:
             console.log("Goodbye");

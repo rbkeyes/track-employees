@@ -36,6 +36,10 @@ const getChoices = async (sql) => {
         const choices = await db.query(sql);
         const choiceList = await choices[0].map(choice => choice.name);
         // console.log(choiceList);
+        if (sql === statements.managerNames) {
+            choiceList.push('No manager');
+            return choiceList;
+        }
         return choiceList;
     } catch (err) {
         console.error(err);

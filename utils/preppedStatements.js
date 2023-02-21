@@ -38,21 +38,35 @@ const statements = {
         VALUES (?, ?, (SELECT id as department_id
             FROM department d
             WHERE name = ?))`,
+            // get department.id that matches dept name to insert into table
     addEmployee:
-        `INSERT INTO employee (first_name, last_name, role, manager)
-        VALUES(?, ?, ? ,?)`,
-    updateRole:
+        `INSERT INTO employee (first_name, last_name, role_id, manager_id)
+        VALUES (?, ?, 
+        (SELECT id as role_id
+        FROM role
+        WHERE title = ?), 
+        (SELECT m.id as manager_id
+        FROM employee m
+        WHERE CONCAT_WS(' ', m.first_name, m.last_name) = ?));`,
+        // get the role.id that matches title and manager.id that matches name to insert into table
+    addEmployeeNoManager:
+        `INSERT INTO employee (first_name, last_name, role_id, manager_id)
+        VALUES (?, ?, 
+        (SELECT id as role_id
+        FROM role
+        WHERE title = ?), 
+        null)`,
+    updateRole: 
         `UPDATE employee
-        SET role_id = ?
-        WHERE id = ?`,
-    deptId:
-        `SELECT id as department_id
-        FROM department
-        WHERE name = '?'`,
-    managerId:
-        `SELECT id as manager_id
-        FROM employee
-        WHERE CONCAT_WS(' ', first_name, last_name) = ?`,
+        SET role_id = (
+            SELECT id
+            FROM role
+            WHERE title = ?
+        )
+        WHERE id = (
+            SELECT id
+            WHERE CONCAT_WS(' ', first_name, last_name) = ?
+        )`,   
 };
 
 
