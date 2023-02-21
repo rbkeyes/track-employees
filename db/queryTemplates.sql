@@ -46,3 +46,7 @@ WHERE role.title = 'manager';
 SELECT CONCAT_WS(' ', first_name, last_name) AS employees
 FROM employee;
 
+-- get manager_id from manager_name
+SELECT id as manager_id
+FROM employee
+
