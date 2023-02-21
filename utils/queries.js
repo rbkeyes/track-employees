@@ -1,6 +1,5 @@
 // import and require mysql
 const mysql = require('mysql2');
-
 const consoleTable = require('console.table');
 const statements = require('./preppedStatements')
 
@@ -23,9 +22,9 @@ const viewData = async (sql) => {
         }
         // not sure why query is returning an array of arrays with bunch of extra data
         // index 0 returns desired data only
-        console.log(data[0]);
+        // console.log(data[0]);
         console.table(data[0]);
-        init();
+        return data;
     } catch (err) {
         console.error(err);
     }

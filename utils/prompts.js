@@ -2,7 +2,7 @@
 const inquirer = require('inquirer');
 
 // const Menu = require('../lib/Menu')
-const getChoices = require('./queries');
+const { db, getChoices }  = require('./queries');
 const statements = require('./preppedStatements');
 const consoleTable = require('console.table');
 
@@ -71,9 +71,9 @@ const runPrompts = async () => {
     },
 ];
 const answers = await inquirer.prompt(prompts);
-console.log(answers);
 return answers;
 };
+
 
 
 // const prompts = {
