@@ -55,7 +55,7 @@ const runPrompts = async () => {
         type: 'list',
         message: "Who is the employee's manager?",
         choices: await getChoices(statements.managerNames),
-        when: (answers) => answers.selectRole
+        when: (answers) => answers.roleTitle
     }, {
         name: 'employeeName',
         type: 'list',
@@ -67,7 +67,7 @@ const runPrompts = async () => {
         type: 'list',
         message: "Select the employee's new role?",
         choices: await getChoices(statements.roleTitles),
-        when: (answers) => answers.selectEmployee
+        when: (answers) => answers.employeeName
     },
 ];
 const answers = await inquirer.prompt(prompts);
