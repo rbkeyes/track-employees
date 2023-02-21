@@ -71,7 +71,6 @@ const runPrompts = async () => {
     },
 ];
 const answers = await inquirer.prompt(prompts);
-// console.log(answers);
 return answers;
 };
 

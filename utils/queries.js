@@ -22,9 +22,9 @@ const viewData = async (sql) => {
         }
         // not sure why query is returning an array of arrays with bunch of extra data
         // index 0 returns desired data only
-        console.log(data[0]);
+        // console.log(data[0]);
         console.table(data[0]);
-        init();
+        return data;
     } catch (err) {
         console.error(err);
     }
@@ -68,4 +68,4 @@ const modifyDb = async (sql, params) => {
 
 // viewData('SELECT * FROM department');
 
-module.exports = { db, viewData, getChoices, modifyDb }
+module.exports = { viewData, getChoices, modifyDb }

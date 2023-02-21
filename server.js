@@ -8,8 +8,6 @@ const { Department } = require('./lib/Department')
 const { viewData, getChoices, modifyDb } = require('./utils/queries');
 const statements = require('./utils/preppedStatements');
 
-
-
 // register port and initiate app
 // const PORT = process.env.PORT || 3001;
 // const app = express();
@@ -17,37 +15,40 @@ const statements = require('./utils/preppedStatements');
 // Express middleware
 // app.use(express.urlencoded({ extended: false }));
 // app.use(express.json());
+
+// initiate application (async)
 const init = async () => {
-const answers = await runPrompts();
-console.log(answers);
-        process.exit(0);
-        //         switch (answers.mainMenu) {
-//             case 'View all departments':
-//                 viewData(statements.viewDepartments);
-//                 break;
-//             case 'View all roles':
-//                 viewData(statements.viewRoles);
-//                 break;
-//             case 'View all employees':
-//                 viewData(statements.viewEmployees);
-//                 break;
-//             case 'Add a department':
-//                 return answers;
-//             case 'Add a role':
-//                 return prompt = prompts.addRole;
-//             case 'Add an employee':
-//                 return prompt = prompts.addEmployee;
-//             case 'Update an employee role':
-//                 return prompt = prompts.updateEmpRole;
-//             default:
-//                 console.log("Goodbye");
-//                 process.exit(0);
-//                 // break;
-//         }
-//     })
-// .then((prompt) => { 
-// console.log(prompt);
-}; 
+    // call function to run prompts, wait for answers
+    const answers = await runPrompts();
+    // console.log(answers);
+    // call next function based on answers.mainMenu result
+    switch (answers.mainMenu) {
+        case 'View all departments':
+            await viewData(statements.viewDepartments);
+            break;
+        case 'View all roles':
+            await viewData(statements.viewRoles);
+            break;
+        case 'View all employees':
+            await viewData(statements.viewEmployees);
+            break;
+        case 'Add a department':
+            
+            break;
+        case 'Add a role':
+            break;
+        case 'Add an employee':
+            break;
+        case 'Update an employee role':
+            break;
+        default:
+            console.log("Goodbye");
+            process.exit(0);
+        // break;
+    };
+
+init();
+};
 
 
 init();
