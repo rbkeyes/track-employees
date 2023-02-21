@@ -25,6 +25,11 @@ VALUES ('product development');
 INSERT INTO role (title, salary, department_id)
 VALUES ('intern', 30, 2);
 
+INSERT INTO role (title, salary, department_id)
+VALUES ('intern', 30, (SELECT id as department_id
+    FROM department d
+    WHERE name = 'accounting'));
+
 -- add employee
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ('Lilly', 'Dog', 2, null);
@@ -46,7 +51,13 @@ WHERE role.title = 'manager';
 SELECT CONCAT_WS(' ', first_name, last_name) AS employees
 FROM employee;
 
+-- get department id from dept name
+SELECT id as department_id
+FROM department
+WHERE name = '?';
+
 -- get manager_id from manager_name
 SELECT id as manager_id
 FROM employee
+WHERE CONCAT_WS(' ', first_name, last_name) = '?';
 

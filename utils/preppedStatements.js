@@ -35,14 +35,24 @@ const statements = {
         VALUES(?)`,
     addRole:
         `INSERT INTO role (title, salary, department_id)
-        VALUES(?, ?, ?)`,
+        VALUES (?, ?, (SELECT id as department_id
+            FROM department d
+            WHERE name = ?))`,
     addEmployee:
         `INSERT INTO employee (first_name, last_name, role, manager)
         VALUES(?, ?, ? ,?)`,
     updateRole:
         `UPDATE employee
         SET role_id = ?
-        WHERE id = ?`
+        WHERE id = ?`,
+    deptId:
+        `SELECT id as department_id
+        FROM department
+        WHERE name = '?'`,
+    managerId:
+        `SELECT id as manager_id
+        FROM employee
+        WHERE CONCAT_WS(' ', first_name, last_name) = ?`,
 };
 
 
