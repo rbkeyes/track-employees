@@ -1,8 +1,4 @@
 // import dependencies
-// const express = require('express');
-// const mysql = require('mysql2');
-// const consoleTable = require('console.table');
-// const inquirer = require('inquirer');
 const runPrompts = require("./utils/prompts");
 const Department = require('./lib/Department');
 const Role = require('./lib/Role');
@@ -10,7 +6,7 @@ const Employee = require('./lib/Employee')
 const { viewData, modifyDb } = require('./utils/queries');
 const statements = require('./utils/preppedStatements');
 
-// initiate application (async)
+// run application 
 const init = async () => {
     // call function to run prompts, wait for answers
     const answers = await runPrompts();
