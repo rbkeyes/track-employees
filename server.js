@@ -10,14 +10,6 @@ const Employee = require('./lib/Employee')
 const { viewData, modifyDb } = require('./utils/queries');
 const statements = require('./utils/preppedStatements');
 
-// register port and initiate app
-// const PORT = process.env.PORT || 3001;
-// const app = express();
-
-// Express middleware
-// app.use(express.urlencoded({ extended: false }));
-// app.use(express.json());
-
 // initiate application (async)
 const init = async () => {
     // call function to run prompts, wait for answers
