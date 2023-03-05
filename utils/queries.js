@@ -8,8 +8,8 @@ const db = mysql.createConnection(
     {
         host: 'localhost',
         user: 'root',
-        password: 'Sackopotatum',
-        database: 'employees_db'
+        database: 'employees_db',
+        password: ' ',
     },
     console.log(`Connected to the employees_db database.`)
 ).promise();

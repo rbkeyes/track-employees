@@ -41,15 +41,59 @@ One feature I was particularly excited about was the use of "when" in the prepar
 
 You must have Node.js installed on your computer. Instructions to install can be found [here](https://nodejs.org/en/).
 
-Clone the [GitHub repo](https://github.com/rbkeyes/blog-about-it) to a local repo. The package-json includes the necessary packages and can be installed by running 
+Clone the [GitHub repo](https://github.com/rbkeyes/track-employees) to a local repo. The package-json includes the necessary packages and can be installed by running 
 ```
 npm i
 ```
 in the terminal command line. 
 
-To connect to mysql, be sure to update the information below:
+To connect to mysql, be sure to add your password to the mysql connection in the queries file, as shown below:
 ```
-DB_NAME='blog_db'
-DB_USER='root'
-DB_PASSWORD=[your password]
+ host: 'localhost',
+        user: 'root',
+        database: 'employees_db',
+        password: '[insert your password here]',
 ```
+
+
+## Usage
+
+To use, open an integrated terminal from your local cloned repo. Be sure to follow installation instructions above before attempting to run.
+
+In the command line, enter the command 
+```
+npm start
+```
+or
+```
+node server
+```
+to start the application. You will be prompted to respond to questions in the command line. Use the up and down arrows on your keypad to choose your answer, and press return/enter to select. 
+
+To exit the program, either select "Exit" from the main menu prompt when offered, or you can enter "control c" in the command line to exit.
+
+
+## Credits
+
+Coursework for the bootcamp was used as reference material in completing this project.
+
+Documentation for [inquirer](https://www.npmjs.com/package/inquirer) was also used as a reference.
+
+No starter code was provided for this project.
+
+
+## License
+
+[MIT license](./LICENSE)
+
+
+## Tests
+
+There are no tests at this time.
+
+
+## Contact
+
+Still have questions? Find me on [GitHub](https://github.com/rbkeyes).
+
+Or, you can [email me](mailto:rbkeyes@gmail.com).
