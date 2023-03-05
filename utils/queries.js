@@ -20,9 +20,6 @@ const viewData = async (sql) => {
         if (!data) {
             console.error('Unable to find requested data');
         }
-        // not sure why query is returning an array of arrays with bunch of extra data
-        // index 0 returns desired data only
-        // console.log(data[0]);
         console.table(data[0]);
         return data;
     } catch (err) {
@@ -55,21 +52,5 @@ const modifyDb = async (sql, params) => {
         }
     };
 
-
-// const addDepartment = async (sql) => {
-
-// }
-
-// 
-
-
-
-
-
-
-
-
-
-// viewData('SELECT * FROM department');
 
 module.exports = { viewData, getChoices, modifyDb }
