@@ -54,7 +54,15 @@ To connect to mysql, be sure to add your password to the mysql connection in the
         database: 'employees_db',
         password: '[insert your password here]',
 ```
-
+You will also need to sign into mysql and run
+```
+SOURCE ./db/schema.sql
+```
+to create the database and tables if they have not already been created. You can also choose to run
+```
+SOURCE ./db/seeds.sql
+```
+to seed the database with started data prior to using. Or, you can choose to add your own data using the prompts when you run the application.
 
 ## Usage
 
