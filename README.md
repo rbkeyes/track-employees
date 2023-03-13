@@ -74,7 +74,7 @@ npm start
 ```
 or
 ```
-node server
+node index
 ```
 to start the application. You will be prompted to respond to questions in the command line. Use the up and down arrows on your keypad to choose your answer, and press return/enter to select. 
 
