@@ -64,6 +64,7 @@ SOURCE ./db/seeds.sql
 ```
 to seed the database with started data prior to using. Or, you can choose to add your own data using the prompts when you run the application.
 
+
 ## Usage
 
 To use, open an integrated terminal from your local cloned repo. Be sure to follow installation instructions above before attempting to run.
@@ -79,6 +80,11 @@ node index
 to start the application. You will be prompted to respond to questions in the command line. Use the up and down arrows on your keypad to choose your answer, and press return/enter to select. 
 
 To exit the program, either select "Exit" from the main menu prompt when offered, or you can enter "control c" in the command line to exit.
+
+**Video demonstrating usage:**
+
+https://user-images.githubusercontent.com/114431225/224804052-d1c9b30a-7d3a-4e69-ae8a-cc4de11a439b.mp4
+
 
 
 ## Credits
